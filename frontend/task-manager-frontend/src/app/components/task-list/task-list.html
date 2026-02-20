@@ -31,10 +31,10 @@
         <small>{{ task.fechaCreacion | date:'dd/MM/yyyy' }}</small>
         <div class="task-actions">
             <button class="btn-complete" (click)="toggleComplete(task)">
-                {{ task.completada ? '↩ Pendiente' : '✔ Completar' }}
+                <i class="fas fa-check"></i> {{ task.completada ? 'Pendiente' : 'Completar' }}
             </button>
-            <button class="btn-edit" (click)="openForm(task)">✏ Editar</button>
-            <button class="btn-delete" (click)="deleteTask(task.id)">🗑 Eliminar</button>
+            <button class="btn-edit" (click)="openForm(task)"><i class="fas fa-pen"></i> Editar</button>
+            <button class="btn-delete" (click)="deleteTask(task.id)"><i class="fas fa-trash"></i> Eliminar</button>
         </div>
     </div>
 </div>
