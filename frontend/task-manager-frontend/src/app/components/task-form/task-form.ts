@@ -16,6 +16,7 @@ export class TaskForm implements OnInit {
 
   titulo = '';
   descripcion = '';
+  fechaActual = new Date().toLocaleString('es-CO');
 
   constructor(private taskService: TaskService) {}
 
