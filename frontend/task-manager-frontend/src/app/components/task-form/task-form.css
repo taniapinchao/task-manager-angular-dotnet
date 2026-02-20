@@ -76,3 +76,26 @@ h2 {
   cursor: pointer;
   font-size: 14px;
 }
+
+.input-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon i {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  color: #888;
+}
+
+.input-icon input {
+  padding-left: 35px;
+  width: 100%;
+}
+
+.input-icon textarea {
+  padding-left: 35px;
+  width: 100%;
+}
