@@ -14,8 +14,10 @@ export class TaskList implements OnInit {
   tasks: TaskItem[] = [];
   selectedTask: TaskItem | null = null;
   showForm = false;
+  showDeleteModal = false;
+  taskToDelete: number | null = null;
 
-  constructor(private taskService: TaskService) {}
+  constructor(private taskService: TaskService) { }
 
   ngOnInit(): void {
     this.loadTasks();
@@ -39,13 +41,26 @@ export class TaskList implements OnInit {
   }
 
   deleteTask(id: number): void {
-    if (confirm('¿Estás segura de eliminar esta tarea?')) {
-      this.taskService.deleteTask(id).subscribe(() => {
+    this.taskToDelete = id;
+    this.showDeleteModal = true;
+  }
+
+  confirmDelete(): void {
+    if (this.taskToDelete !== null) {
+      this.taskService.deleteTask(this.taskToDelete).subscribe(() => {
         this.loadTasks();
+        this.showDeleteModal = false;
+        this.taskToDelete = null;
       });
     }
   }
 
+  cancelDelete(): void {
+    this.showDeleteModal = false;
+    this.taskToDelete = null;
+  }
+
+  
   toggleComplete(task: TaskItem): void {
     task.completada = !task.completada;
     this.taskService.updateTask(task.id, task).subscribe();
