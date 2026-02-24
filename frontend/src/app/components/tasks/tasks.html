@@ -45,19 +45,28 @@
                     <form>
                         <div class="mb-3">
                             <label for="titulo" class="form-label fw-semibold">Título</label>
-                            <input type="text" class="form-control form-control-lg" id="titulo"
-                                [(ngModel)]="tareaModal.titulo" name="titulo" placeholder="Título de la tarea">
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-pencil-square"></i></span>
+                                <input type="text" class="form-control form-control-lg" id="titulo"
+                                    [(ngModel)]="tareaModal.titulo" name="titulo" placeholder="Título de la tarea">
+                            </div>
                         </div>
                         <div class="mb-3">
                             <label for="descripcion" class="form-label fw-semibold">Descripción</label>
-                            <textarea class="form-control form-control-lg" id="descripcion"
-                                [(ngModel)]="tareaModal.descripcion" name="descripcion" rows="3"
-                                placeholder="Descripción"></textarea>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-text-left"></i></span>
+                                <textarea class="form-control form-control-lg" id="descripcion"
+                                    [(ngModel)]="tareaModal.descripcion" name="descripcion" rows="3"
+                                    placeholder="Descripción"></textarea>
+                            </div>
                         </div>
                         <div class="mb-3">
                             <label class="form-label fw-semibold">Fecha de creación</label>
-                            <input type="text" class="form-control"
-                                [value]="tareaModal.fechaCreacion | date:'dd/MM/yyyy HH:mm'" disabled>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-calendar"></i></span>
+                                <input type="text" class="form-control"
+                                    [value]="tareaModal.fechaCreacion | date:'dd/MM/yyyy HH:mm'" disabled>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -89,7 +98,8 @@
                     </p>
                     <span class="badge mb-3 cursor-pointer" [ngClass]="task.completada ? 'bg-success' : 'bg-danger'"
                         (click)="cambiarEstado(task)" style="cursor: pointer;">
-                        {{ task.completada ? '✔ Completada' : '✖ Pendiente' }}
+                        <i class="bi" [ngClass]="task.completada ? 'bi-check-circle-fill' : 'bi-x-circle-fill'"></i>
+                        {{ task.completada ? ' Completada' : ' Pendiente' }}
                     </span>
                     <div class="mt-auto d-flex justify-content-between">
                         <button class="btn btn-sm btn-outline-info" data-bs-toggle="modal" data-bs-target="#modalTarea"
