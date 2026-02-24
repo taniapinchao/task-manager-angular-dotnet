@@ -1,8 +1,25 @@
 <div class="container py-5">
 
+    <!-- Alerta de éxito -->
+    <div *ngIf="showSuccessAlert" class="alert alert-success alert-dismissible text-center fw-semibold shadow"
+        role="alert">
+        <i class="bi bi-check-circle-fill me-2"></i> ¡Tarea creada correctamente!
+    </div>
+
+    <!-- Modal eliminar -->
+    <div class="modal-overlay" *ngIf="showDeleteModal">
+        <div class="modal-box">
+            <div class="modal-icon">?</div>
+            <p>¿Estás seguro(a) de eliminar esta tarea?</p>
+            <div class="modal-actions">
+                <button class="btn btn-primary" (click)="confirmarEliminar()">Eliminar</button>
+                <button class="btn btn-danger" (click)="cancelarEliminar()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
     <div class="text-center mb-5">
-        <h1 class="display-4 fw-bold">Task Manager</h1>
-        <p class="text-muted">Gestión de tareas con Angular 17 + .NET</p>
+        <h1 class="display-4 fw-bold">Gestión de Tareas</h1>
     </div>
 
     <!-- Botón abrir modal -->
@@ -37,6 +54,11 @@
                                 [(ngModel)]="tareaModal.descripcion" name="descripcion" rows="3"
                                 placeholder="Descripción"></textarea>
                         </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Fecha de creación</label>
+                            <input type="text" class="form-control"
+                                [value]="tareaModal.fechaCreacion | date:'dd/MM/yyyy HH:mm'" disabled>
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -65,7 +87,8 @@
                     <p class="text-secondary small mb-3">
                         {{ task.editada ? 'Editada: ' : 'Creada: ' }} {{ task.fechaCreacion | date:'short' }}
                     </p>
-                    <span class="badge mb-3" [ngClass]="task.completada ? 'bg-success' : 'bg-danger'">
+                    <span class="badge mb-3 cursor-pointer" [ngClass]="task.completada ? 'bg-success' : 'bg-danger'"
+                        (click)="cambiarEstado(task)" style="cursor: pointer;">
                         {{ task.completada ? '✔ Completada' : '✖ Pendiente' }}
                     </span>
                     <div class="mt-auto d-flex justify-content-between">

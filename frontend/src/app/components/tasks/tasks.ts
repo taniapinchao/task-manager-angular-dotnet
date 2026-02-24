@@ -35,7 +35,7 @@ export class TasksComponent implements OnInit {
 
   abrirModalCrear() {
     this.isEditMode = false;
-    this.tareaModal = { titulo: '', descripcion: '', completada: false };
+    this.tareaModal = { titulo: '', descripcion: '', completada: false, fechaCreacion: new Date().toISOString() };
   }
 
   abrirModalEditar(task: Task) {
@@ -81,13 +81,34 @@ export class TasksComponent implements OnInit {
       this.taskService.createTask(nueva)
         .subscribe(creada => {
           this.tasks.update(tareas => [...tareas, creada]);
+          this.showSuccessAlert = true;
+          setTimeout(() => this.showSuccessAlert = false, 3000);
         });
     }
   }
 
+  showDeleteModal = false;
+  showSuccessAlert = false;
+  taskToDelete: number | null = null;
+
   eliminarTarea(id?: number) {
-    if (id == null) return; // seguridad
-    this.taskService.deleteTask(id).subscribe(() => this.cargarTareas());
+    if (id == null) return;
+    this.taskToDelete = id;
+    this.showDeleteModal = true;
+  }
+
+  confirmarEliminar() {
+    if (this.taskToDelete == null) return;
+    this.taskService.deleteTask(this.taskToDelete).subscribe(() => {
+      this.cargarTareas();
+      this.showDeleteModal = false;
+      this.taskToDelete = null;
+    });
+  }
+
+  cancelarEliminar() {
+    this.showDeleteModal = false;
+    this.taskToDelete = null;
   }
 
   cambiarEstado(task: Task) {
